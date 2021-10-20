@@ -2,7 +2,25 @@
 #include <stdlib.h>
 #include <time.h>
 
+void multiply_matrixes(int **M1,int **M2,int **M3, int M,int N){
+    for(int rank=0;rank<M;rank++){
+        for(int col=0;col<M;col++){
+            M3[rank][col] = 0;
+            for(int k=0;k<N;k++){
+                M3[rank][col] += M1[rank][k] + M2[k][col];
+            }
+        }
+    }
 
+    for(int i=0;i<M;i++){
+        for(int j=0;j<M;j++){
+            int A3;
+            A3 = M3[i][j];
+            printf("%d\t",A3);
+        }
+        printf("\n");
+    }
+}
 
 int main(int argc, char **argv){
     if(argc != 4){
@@ -12,7 +30,7 @@ int main(int argc, char **argv){
     else if(atoi(argv[1]) <= 0 || atoi(argv[2]) <= 0){
         printf("The number must be positive integers.\n");
     }
-    //else if
+
     else {
         int s = atoi(argv[3]);
         srand(s);
@@ -59,23 +77,8 @@ int main(int argc, char **argv){
             M3[i] = (int*)malloc(sizeof(int*) * M);
         }
         printf("RESULT: \n");
-        for(int rank=0;rank<M;rank++){
-            for(int col=0;col<M;col++){
-                M3[rank][col] = 0;
-                for(int k=0;k<N;k++){
-                    M3[rank][col] += M1[rank][k] * M2[k][col];
-                }
-            }
-        }
-
-        for(int i=0;i<M;i++){
-            for(int j=0;j<M;j++){
-                int A3;
-                A3 = M3[i][j];
-                printf("%d\t",A3);
-            }
-            printf("\n");
-        }
+        multiply_matrixes(M1,M2,M3,M,N);
+        //A3 = M3[i][j];
 
 
         finish = clock();
